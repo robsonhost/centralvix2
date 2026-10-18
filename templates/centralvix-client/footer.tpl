@@ -111,12 +111,12 @@
 
 {include file="$template/includes/generate-password.tpl"}
 <!-- CVIX-FORCE-ASSETS-v1.2.5 (inline footer — sem include externo) -->
-<link rel="stylesheet" href="/templates/centralvix-client/css/all.min.css?v=1.2.5">
-<link rel="stylesheet" href="/templates/centralvix-client/css/theme.min.css?v=1.2.5">
-<link rel="stylesheet" href="/templates/centralvix-client/assets/css/centralvix-client.bundle.css?v=1.2.5">
+<link rel="stylesheet" href="/templates/centralvix-client/css/all.min.css?v=1.3.0">
+<link rel="stylesheet" href="/templates/centralvix-client/css/theme.min.css?v=1.3.0">
+<link rel="stylesheet" href="/templates/centralvix-client/assets/css/centralvix-client.bundle.css?v=1.3.0">
 <link rel="stylesheet" href="/assets/fonts/css/fontawesome.min.css">
 <link rel="stylesheet" href="/assets/fonts/css/fontawesome-solid.min.css">
-<script src="/templates/centralvix-client/js/scripts.min.js?v=1.2.5"></script>
+<script src="/templates/centralvix-client/js/scripts.min.js?v=1.3.0"></script>
 <style id="cv-force-inline">
 .w-hidden,.modal:not(.show),#fullpage-overlay.w-hidden,#accountNotificationsContent,#modalChooseLanguage,#modalAjax,.popover{display:none!important}
 .cv-client-body{font-family:'Open Sans',Segoe UI,sans-serif;background:#F5F8FC;color:#0B1F3A;margin:0}
@@ -141,7 +141,7 @@
 @media(max-width:991px){.cv-main{margin-left:0!important}.cv-sidebar{transform:translateX(-100%)}.cv-sidebar.cv-sidebar-open{transform:translateX(0)}}
 </style>
 {$footeroutput}
-<script src="/templates/centralvix-client/assets/js/centralvix-client.min.js?v=1.2.5"></script>
+<script src="/templates/centralvix-client/assets/js/centralvix-client.min.js?v=1.3.0"></script>
 <script>(function(){if(typeof jQuery==='undefined')return;jQuery(function(){jQuery('.table-list[id]').removeClass('w-hidden').show();jQuery('#tableLoading').hide();jQuery('.modal:not(.show)').hide();});})();</script>
 </body>
 </html>
