@@ -68,13 +68,19 @@ function centralvix_render_header($page, array $cvix, array $urls)
                 } ?>
             </nav>
             <div class="cv-landing-header-actions">
-                <a class="cv-landing-btn-register" href="<?php echo centralvix_h($urls['cadastro']); ?>">Criar conta</a>
+                <a class="cv-landing-btn-register" href="<?php echo centralvix_h($urls['cadastro']); ?>"><i class="fas fa-user-plus" aria-hidden="true"></i><span>Criar conta</span></a>
                 <a class="cv-landing-btn-client" href="<?php echo centralvix_h($loginHref); ?>"><i class="fas fa-lock" aria-hidden="true"></i><span>Área do Cliente</span></a>
                 <button type="button" class="cv-landing-burger" id="cv-landing-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="cv-landing-mobile-panel"><i class="fas fa-bars" aria-hidden="true"></i></button>
             </div>
         </div>
     </header>
     <div class="cv-landing-mobile-panel" id="cv-landing-mobile-panel">
+        <div class="cv-landing-mobile-auth">
+            <p class="cv-landing-mobile-auth-title"><i class="fas fa-lock" aria-hidden="true"></i> Área do Cliente</p>
+            <p class="cv-landing-mobile-auth-sub">Serviços, faturas e chamados em um só painel</p>
+            <a class="cv-landing-btn-client" href="<?php echo centralvix_h($loginHref); ?>"><span>Entrar na minha conta</span><i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="cv-landing-mobile-register" href="<?php echo centralvix_h($urls['cadastro']); ?>"><i class="fas fa-user-plus" aria-hidden="true"></i> Criar conta grátis</a>
+        </div>
         <p class="cv-landing-mobile-label">Navegação</p>
         <?php foreach (centralvix_nav_items($urls) as $item) { ?>
             <a href="<?php echo centralvix_h($item['href']); ?>"><?php echo centralvix_h($item['label']); ?></a>
@@ -82,10 +88,6 @@ function centralvix_render_header($page, array $cvix, array $urls)
                 <a class="cv-landing-mobile-sub" href="<?php echo centralvix_h($child['href']); ?>"><?php echo centralvix_h($child['label']); ?></a>
             <?php } ?>
         <?php } ?>
-        <div class="cv-landing-mobile-actions">
-            <a class="cv-landing-btn-client" href="<?php echo centralvix_h($loginHref); ?>"><i class="fas fa-lock" aria-hidden="true"></i><span>Área do Cliente</span></a>
-            <a class="cv-landing-btn-register" href="<?php echo centralvix_h($urls['cadastro']); ?>">Criar conta</a>
-        </div>
         <a class="cv-landing-mobile-invoice" href="<?php echo centralvix_h($urls['invoices']); ?>"><i class="fas fa-file-invoice" aria-hidden="true"></i> 2ª via de fatura</a>
     </div>
     <?php
@@ -247,7 +249,22 @@ function centralvix_render_login_page(array $cvix, array $ctx)
         <a class="cv-auth-back" href="<?php echo centralvix_h($homeHref); ?>"><i class="fas fa-arrow-left" aria-hidden="true"></i> Voltar ao site</a>
     </div>
     <main class="cv-auth-main">
-        <section class="cv-landing-card cv-auth-card" aria-labelledby="cv-auth-title" data-cv-reveal>
+        <div class="cv-auth-shell" data-cv-reveal>
+            <aside class="cv-auth-visual" aria-hidden="true">
+                <div class="cv-auth-visual-grid"></div>
+                <div class="cv-auth-visual-glow"></div>
+                <div class="cv-auth-visual-content">
+                    <span class="cv-auth-visual-badge"><img src="/assets/img/logo-icon.png" alt=""></span>
+                    <h2>Sua central de serviços online</h2>
+                    <p>Hospedagem, VPS, streaming e web rádio — com faturas, notificações e suporte em um único painel.</p>
+                    <ul>
+                        <li><i class="fas fa-server" aria-hidden="true"></i> Gerencie todos os seus serviços</li>
+                        <li><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Faturas, 2ª via e pagamentos</li>
+                        <li><i class="fas fa-headset" aria-hidden="true"></i> Chamados e suporte integrado</li>
+                    </ul>
+                </div>
+            </aside>
+            <section class="cv-landing-card cv-auth-card" aria-labelledby="cv-auth-title">
             <div class="cv-landing-card-head">
                 <span class="cv-landing-card-icon" aria-hidden="true"><i class="fas fa-user-astronaut"></i></span>
                 <div class="cv-landing-card-headings">
@@ -287,7 +304,8 @@ function centralvix_render_login_page(array $cvix, array $ctx)
             <div class="cv-landing-divider">ou</div>
             <a class="cv-landing-secondary" href="<?php echo centralvix_h($urls['invoices']); ?>"><i class="fas fa-file-invoice" aria-hidden="true"></i> Consulta de 2ª Via</a>
             <p class="cv-landing-register">Ainda não tem conta? <a href="<?php echo centralvix_h($urls['cadastro']); ?>">Cadastre-se grátis</a></p>
-        </section>
+            </section>
+        </div>
         <p class="cv-auth-note"><i class="fas fa-shield-alt" aria-hidden="true"></i> Conexão protegida. A autenticação segue as regras de segurança do sistema.</p>
     </main>
     <?php
@@ -702,42 +720,112 @@ function centralvix_render_contato(array $cvix, array $ctx)
 {
     $urls = $ctx['urls'];
     $token = $ctx['token'];
+    $email = trim((string) ($cvix['email'] ?? ''));
+    $whatsapp = preg_replace('/\D/', '', (string) ($cvix['whatsapp'] ?? ''));
+    $phone = trim((string) ($cvix['phone'] ?? ''));
+    $hours = trim((string) ($cvix['hours'] ?? ''));
     ob_start();
-    echo centralvix_page_hero('CONTATO', 'Fale com a CENTRALVIX', 'Envie sua mensagem. Retornamos no horário comercial.');
+    echo centralvix_page_hero('CONTATO', 'Fale com a CENTRALVIX', 'Dúvidas sobre planos, contratação ou suporte — escolha o canal e fale com a nossa equipe.');
     ?>
     <section class="cv-page-body">
-        <div class="cv-landing-wrap cv-form-wrap">
-            <?php if (!empty($ctx['contactSent'])) { ?>
-                <div class="cv-alert cv-alert-ok" role="status">Mensagem enviada. Em breve retornamos o contato.</div>
-            <?php } else { ?>
-                <?php if (!empty($ctx['contactError'])) { ?>
-                    <div class="cv-alert cv-alert-error" role="alert"><?php echo centralvix_h($ctx['contactError']); ?></div>
+        <div class="cv-landing-wrap cv-contact-grid">
+            <aside class="cv-contact-info">
+                <h2 class="cv-contact-title">Canais de atendimento</h2>
+                <p class="cv-contact-lead">Atendimento humano, sem robôs. Retornamos no horário comercial com a resposta certa.</p>
+                <ul class="cv-contact-channels">
+                    <?php if ($whatsapp !== '') { ?>
+                        <li>
+                            <a class="cv-channel" href="https://wa.me/<?php echo centralvix_h($whatsapp); ?>" target="_blank" rel="noopener">
+                                <span class="cv-channel-icon cv-channel-whatsapp" aria-hidden="true"><i class="fab fa-whatsapp"></i></span>
+                                <span class="cv-channel-text">
+                                    <strong>WhatsApp</strong>
+                                    <small>Resposta rápida em horário comercial</small>
+                                </span>
+                                <i class="fas fa-arrow-right cv-channel-go" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($email !== '') { ?>
+                        <li>
+                            <a class="cv-channel" href="mailto:<?php echo centralvix_h($email); ?>">
+                                <span class="cv-channel-icon cv-channel-mail" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+                                <span class="cv-channel-text">
+                                    <strong>E-mail</strong>
+                                    <small><?php echo centralvix_h($email); ?></small>
+                                </span>
+                                <i class="fas fa-arrow-right cv-channel-go" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($phone !== '') { ?>
+                        <li>
+                            <span class="cv-channel">
+                                <span class="cv-channel-icon cv-channel-phone" aria-hidden="true"><i class="fas fa-phone"></i></span>
+                                <span class="cv-channel-text">
+                                    <strong>Telefone</strong>
+                                    <small><?php echo centralvix_h($phone); ?></small>
+                                </span>
+                            </span>
+                        </li>
+                    <?php } ?>
+                    <li>
+                        <span class="cv-channel">
+                            <span class="cv-channel-icon cv-channel-hours" aria-hidden="true"><i class="fas fa-clock"></i></span>
+                            <span class="cv-channel-text">
+                                <strong>Horário de atendimento</strong>
+                                <small><?php echo centralvix_h($hours !== '' ? $hours : 'Segunda a Sexta, 8h às 18h'); ?></small>
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+                <div class="cv-contact-links">
+                    <span class="cv-contact-links-label">Atendimento rápido</span>
+                    <div class="cv-contact-links-row">
+                        <a href="<?php echo centralvix_h($urls['ticket'] ?? '/submitticket.php'); ?>"><i class="fas fa-headset" aria-hidden="true"></i> Abrir chamado</a>
+                        <a href="<?php echo centralvix_h($urls['invoices'] ?? '/2via'); ?>"><i class="fas fa-file-invoice" aria-hidden="true"></i> 2ª via de fatura</a>
+                    </div>
+                </div>
+            </aside>
+            <div class="cv-contact-form">
+                <?php if (!empty($ctx['contactSent'])) { ?>
+                    <div class="cv-form-card cv-contact-success" role="status">
+                        <span class="cv-contact-success-icon" aria-hidden="true"><i class="fas fa-circle-check"></i></span>
+                        <h3>Mensagem enviada</h3>
+                        <p>Recebemos o seu contato. Em breve a nossa equipe retorna pelo e-mail informado.</p>
+                        <a class="cv-landing-secondary" href="/">Voltar para o início</a>
+                    </div>
+                <?php } else { ?>
+                    <?php if (!empty($ctx['contactError'])) { ?>
+                        <div class="cv-alert cv-alert-error" role="alert"><?php echo centralvix_h($ctx['contactError']); ?></div>
+                    <?php } ?>
+                    <form method="post" action="<?php echo centralvix_h($urls['contato']); ?>" class="cv-form-card">
+                        <input type="hidden" name="cvix_contact" value="1">
+                        <?php if ($token !== '') { ?><input type="hidden" name="token" value="<?php echo centralvix_h($token); ?>"><?php } ?>
+                        <h3 class="cv-contact-form-title">Envie sua mensagem</h3>
+                        <div class="cv-form-grid">
+                            <div class="cv-landing-field">
+                                <label for="contactName">Nome <span class="cv-req" aria-hidden="true">*</span></label>
+                                <input type="text" id="contactName" name="name" required autocomplete="name">
+                            </div>
+                            <div class="cv-landing-field">
+                                <label for="contactEmail">E-mail <span class="cv-req" aria-hidden="true">*</span></label>
+                                <input type="email" id="contactEmail" name="email" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="cv-landing-field">
+                            <label for="contactSubject">Assunto <span class="cv-req" aria-hidden="true">*</span></label>
+                            <input type="text" id="contactSubject" name="subject" required>
+                        </div>
+                        <div class="cv-landing-field">
+                            <label for="contactMessage">Mensagem <span class="cv-req" aria-hidden="true">*</span></label>
+                            <textarea id="contactMessage" name="message" rows="6" required></textarea>
+                        </div>
+                        <?php echo $ctx['captchaHtml']; ?>
+                        <button type="submit" class="cv-landing-submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Enviar mensagem</button>
+                        <p class="cv-contact-privacy"><i class="fas fa-lock" aria-hidden="true"></i> Seus dados são usados apenas para responder este contato.</p>
+                    </form>
                 <?php } ?>
-                <form method="post" action="<?php echo centralvix_h($urls['contato']); ?>" class="cv-form-card">
-                    <input type="hidden" name="cvix_contact" value="1">
-                    <?php if ($token !== '') { ?><input type="hidden" name="token" value="<?php echo centralvix_h($token); ?>"><?php } ?>
-                    <div class="cv-form-grid">
-                        <div class="cv-landing-field">
-                            <label for="contactName">Nome</label>
-                            <input type="text" id="contactName" name="name" required>
-                        </div>
-                        <div class="cv-landing-field">
-                            <label for="contactEmail">E-mail</label>
-                            <input type="email" id="contactEmail" name="email" required>
-                        </div>
-                    </div>
-                    <div class="cv-landing-field">
-                        <label for="contactSubject">Assunto</label>
-                        <input type="text" id="contactSubject" name="subject" required>
-                    </div>
-                    <div class="cv-landing-field">
-                        <label for="contactMessage">Mensagem</label>
-                        <textarea id="contactMessage" name="message" rows="6" required></textarea>
-                    </div>
-                    <?php echo $ctx['captchaHtml']; ?>
-                    <button type="submit" class="cv-landing-submit">Enviar mensagem</button>
-                </form>
-            <?php } ?>
+            </div>
         </div>
     </section>
     <?php
@@ -957,18 +1045,18 @@ function centralvix_render_2via(array $ctx)
     return ob_get_clean();
 }
 
-function centralvix_render_catalog_nav(array $pages)
+function centralvix_render_catalog_nav(array $pages, $current = 'catalogo')
 {
     $skip = ['catalogo' => true, 'revenda-hospedagem' => true];
     ob_start();
     ?>
     <nav class="cv-catalog-nav" aria-label="Serviços">
-        <a href="/catalogo">Todos</a>
+        <a href="/catalogo"<?php echo $current === 'catalogo' ? ' class="is-on" aria-current="page"' : ''; ?>>Todos</a>
         <?php foreach ($pages as $slug => $meta) {
             if (isset($skip[$slug])) {
                 continue;
             } ?>
-            <a href="<?php echo centralvix_h('/' . $slug); ?>"><?php echo centralvix_h($meta['title']); ?></a>
+            <a href="<?php echo centralvix_h('/' . $slug); ?>"<?php echo $slug === $current ? ' class="is-on" aria-current="page"' : ''; ?>><?php echo centralvix_h($meta['title']); ?></a>
         <?php } ?>
     </nav>
     <?php
@@ -978,22 +1066,9 @@ function centralvix_render_catalog_nav(array $pages)
 function centralvix_render_catalog_cards(array $products)
 {
     if (!$products) {
-        return '<p class="cv-plan-period">Nenhum produto público neste segmento ainda. Os cards aparecem quando o produto existir no WHMCS e estiver visível.</p>';
-    }
-    $hasAnnual = false;
-    $hasMonthly = false;
-    foreach ($products as $p) {
-        if ((float) ($p['monthly'] ?? 0) > 0) {
-            $hasMonthly = true;
-        }
-        if ((float) ($p['annually'] ?? 0) > 0) {
-            $hasAnnual = true;
-        }
+        return '';
     }
     ob_start();
-    if ($hasMonthly && $hasAnnual) {
-        echo '<div class="cv-cycle-toggle" data-cycle-root><button type="button" class="is-on" data-cycle="monthly">Mensal</button><button type="button" data-cycle="annually">Anual</button></div>';
-    }
     echo '<div class="cv-plans-grid cv-catalog-grid">';
     foreach ($products as $p) {
         $monthly = centralvix_catalog_money($p['monthly'] ?? null);
@@ -1009,20 +1084,23 @@ function centralvix_render_catalog_cards(array $products)
         if ($badge !== '') {
             echo '<span class="cv-plan-badge">' . centralvix_h($badge) . '</span>';
         }
+        echo '<div class="cv-plan-head">';
+        echo '<h2>' . centralvix_h($p['name']) . '</h2>';
+        if (!empty($p['slogan'])) {
+            echo '<p class="cv-plan-slogan">' . centralvix_h($p['slogan']) . '</p>';
+        }
+        echo '</div>';
+        echo '<div class="cv-plan-pricebox">';
         if (!empty($p['promotion_label'])) {
             echo '<span class="cv-plan-off">' . centralvix_h($p['promotion_label']) . '</span>';
         }
-        echo '<h2>' . centralvix_h($p['name']) . '</h2>';
-        if (!empty($p['slogan'])) {
-            echo '<p class="cv-plan-period">' . centralvix_h($p['slogan']) . '</p>';
-        }
-        echo '<p class="cv-plan-from">a partir de</p>';
         if ($compareM) {
-            echo '<p class="cv-plan-compare">' . centralvix_h($compareM) . '</p>';
+            echo '<p class="cv-plan-compare"><span>' . centralvix_h($compareM) . '</span></p>';
         }
         echo '<p class="cv-plan-price" data-price>' . centralvix_h($monthly ?: ($annually ?: 'Sob consulta')) . '</p>';
         echo '<p class="cv-plan-period" data-period>' . ($monthly ? '/mês' : ($annually ? '/ano' : '')) . '</p>';
-        echo '<ul>';
+        echo '</div>';
+        echo '<ul class="cv-plan-feats">';
         foreach (($p['features'] ?? []) as $feat) {
             $label = trim(implode(' ', array_filter([
                 (string) ($feat['value'] ?? ''),
@@ -1035,7 +1113,10 @@ function centralvix_render_catalog_cards(array $products)
             echo '<li><i class="fas fa-check" aria-hidden="true"></i> ' . centralvix_h($label) . '</li>';
         }
         echo '</ul>';
+        echo '<div class="cv-plan-foot">';
         echo '<a class="cv-landing-submit" href="' . centralvix_h($url) . '">Contratar agora</a>';
+        echo '<p class="cv-plan-note"><i class="fas fa-rocket" aria-hidden="true"></i> Ativação automática após pagamento</p>';
+        echo '</div>';
         echo '</article>';
     }
     echo '</div>';
@@ -1046,33 +1127,64 @@ function centralvix_render_catalog_page(array $ctx)
 {
     $catalog = $ctx['catalog'] ?? ['page' => ['title' => 'Catálogo', 'headline' => 'Serviços', 'lead' => ''], 'products' => [], 'groups' => [], 'nav' => []];
     $page = $catalog['page'];
+    $current = (string) ($catalog['slug'] ?? 'catalogo');
+    $allProducts = $catalog['products'] ?? [];
+    $hasMonthly = false;
+    $hasAnnual = false;
+    foreach ($allProducts as $p) {
+        if ((float) ($p['monthly'] ?? 0) > 0) {
+            $hasMonthly = true;
+        }
+        if ((float) ($p['annually'] ?? 0) > 0) {
+            $hasAnnual = true;
+        }
+    }
     ob_start();
     echo centralvix_page_hero(strtoupper($page['title'] ?? 'CATÁLOGO'), $page['headline'] ?? 'Serviços CentralVix', $page['lead'] ?? '');
     ?>
     <section class="cv-page-body">
         <div class="cv-landing-wrap">
-            <?php echo centralvix_render_catalog_nav($catalog['nav'] ?? []); ?>
-            <?php if (!empty($page['locations'])) { ?>
-                <div class="cv-loc-toggle" data-loc-root>
-                    <button type="button" class="is-on" data-loc="brasil">🇧🇷 Servidores Brasil · PING BAIXO</button>
-                    <button type="button" data-loc="canada">🇨🇦 Servidores Canadá · INFRAESTRUTURA GLOBAL</button>
+            <?php echo centralvix_render_catalog_nav($catalog['nav'] ?? [], $current); ?>
+            <?php if (!$allProducts) { ?>
+                <div class="cv-catalog-empty">
+                    <span class="cv-catalog-empty-icon" aria-hidden="true"><i class="fas fa-box-open"></i></span>
+                    <h3>Planos em preparação</h3>
+                    <p>Os planos deste segmento serão publicados em breve. Enquanto isso, fale com a nossa equipe e receba uma proposta sob medida.</p>
+                    <a class="cv-landing-submit" href="/contato"><i class="fas fa-headset" aria-hidden="true"></i> Falar com vendas</a>
                 </div>
-            <?php } ?>
-            <?php
-            if (!empty($catalog['groups'])) {
-                foreach ($catalog['groups'] as $group) {
-                    echo '<div class="cv-catalog-group" data-group-location="' . centralvix_h($group['slug'] ?? '') . '">';
-                    echo '<h3 class="cv-catalog-subtitle">' . centralvix_h($group['name']) . '</h3>';
-                    if (!empty($group['tagline'])) {
-                        echo '<p class="cv-plan-period">' . centralvix_h($group['tagline']) . '</p>';
+            <?php } else { ?>
+                <div class="cv-catalog-toolbar">
+                    <?php if (!empty($page['locations'])) { ?>
+                        <div class="cv-loc-toggle" data-loc-root>
+                            <button type="button" class="is-on" data-loc="brasil"><span aria-hidden="true">🇧🇷</span> Brasil · ping baixo</button>
+                            <button type="button" data-loc="canada"><span aria-hidden="true">🇨🇦</span> Canadá · infra global</button>
+                        </div>
+                    <?php } ?>
+                    <?php if ($hasMonthly && $hasAnnual) { ?>
+                        <div class="cv-cycle-toggle" data-cycle-root>
+                            <button type="button" class="is-on" data-cycle="monthly">Mensal</button>
+                            <button type="button" data-cycle="annually">Anual</button>
+                        </div>
+                    <?php } ?>
+                </div>
+                <?php
+                if (!empty($catalog['groups'])) {
+                    foreach ($catalog['groups'] as $group) {
+                        echo '<div class="cv-catalog-group" data-group-location="' . centralvix_h($group['slug'] ?? '') . '">';
+                        echo '<div class="cv-catalog-group-head">';
+                        echo '<h3 class="cv-catalog-subtitle">' . centralvix_h($group['name']) . '</h3>';
+                        echo '<span class="cv-catalog-count">' . count($group['products']) . ' ' . (count($group['products']) === 1 ? 'plano' : 'planos') . '</span>';
+                        echo '</div>';
+                        if (!empty($group['tagline'])) {
+                            echo '<p class="cv-catalog-tagline">' . centralvix_h($group['tagline']) . '</p>';
+                        }
+                        echo centralvix_render_catalog_cards($group['products']);
+                        echo '</div>';
                     }
-                    echo centralvix_render_catalog_cards($group['products']);
-                    echo '</div>';
+                } else {
+                    echo centralvix_render_catalog_cards($allProducts);
                 }
-            } else {
-                echo centralvix_render_catalog_cards($catalog['products'] ?? []);
-            }
-            ?>
+            } ?>
         </div>
     </section>
     <?php
@@ -1121,14 +1233,14 @@ function centralvix_render_public_page($page, array $cvix, array $ctx)
         . '</div>';
 }
 
-function centralvix_render_public_landing(array $cvix, array $urls, $token, $captchaHtml, $captchaBtnClass, $year)
+function centralvix_render_public_landing(array $cvix, array $urls, $token, $captchaHtml, $captchaBtnClass, $year, $loginError = false)
 {
     return centralvix_render_public_page('login', $cvix, [
         'urls' => $urls,
         'token' => $token,
         'captchaHtml' => $captchaHtml,
         'year' => $year,
-        'loginError' => false,
+        'loginError' => $loginError,
         'goto' => 'clientarea.php',
         'customFields' => [],
         'products' => [],

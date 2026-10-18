@@ -81,6 +81,7 @@ add_hook('ClientAreaHeaderOutput', 1, function ($vars) {
         'contact' => $web . '/contact.php',
         'login' => centralvix_public_url('login-validate', $web . '/dologin.php'),
         'login_page' => $web . '/login.php',
+        'cadastro' => $web . '/cadastro',
         'reset' => centralvix_public_url('password-reset-begin', $web . '/pwreset.php'),
         'register' => centralvix_public_url('register', $web . '/register.php'),
         'invoices' => $web . '/clientarea.php?action=invoices',
@@ -108,6 +109,7 @@ add_hook('ClientAreaHeaderOutput', 1, function ($vars) {
     $cvix = $vars['cvix'] ?? centralvix_public_config();
     $token = (string) ($vars['token'] ?? '');
     $year = (string) ($vars['date_year'] ?? date('Y'));
+    $loginError = !empty($vars['incorrect']) || !empty($vars['loginError']);
 
-    return centralvix_render_public_landing($cvix, $urls, $token, $captchaHtml, $captchaBtnClass, $year);
+    return centralvix_render_public_landing($cvix, $urls, $token, $captchaHtml, $captchaBtnClass, $year, $loginError);
 });

@@ -394,5 +394,31 @@
                 });
             });
         });
+
+        /* Lista de recursos: expandir/recolher quando há muitos itens */
+        qsa('.cv-catalog-grid .cv-plan-feats').forEach(function (list) {
+            var items = qsa('li', list);
+            if (items.length <= 6) {
+                return;
+            }
+            var expanded = false;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'cv-feat-toggle';
+            btn.setAttribute('aria-expanded', 'false');
+            var update = function () {
+                btn.textContent = expanded
+                    ? 'Ver menos recursos'
+                    : 'Ver todos os ' + items.length + ' recursos';
+                btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                list.classList.toggle('is-expanded', expanded);
+            };
+            btn.addEventListener('click', function () {
+                expanded = !expanded;
+                update();
+            });
+            update();
+            list.parentNode.insertBefore(btn, list.nextSibling);
+        });
     });
 })();
