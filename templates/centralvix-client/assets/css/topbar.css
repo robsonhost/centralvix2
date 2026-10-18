@@ -1,0 +1,146 @@
+/* Topbar premium + menus */
+
+.cv-topbar {
+    overflow: visible;
+}
+
+.cv-topbar-right {
+    overflow: visible;
+}
+
+.cv-topbar-notifications {
+    position: relative;
+}
+
+.cv-account-menu {
+    position: relative;
+}
+
+.cv-account-menu .dropdown-menu {
+    min-width: 240px;
+    padding: 0.35rem 0;
+    border: 1px solid var(--cv-border);
+    border-radius: 12px;
+    box-shadow: 0 16px 48px rgba(7, 20, 38, 0.14);
+}
+
+.cv-account-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+}
+
+.cv-account-menu .dropdown-item i {
+    width: 1.1rem;
+    color: var(--cv-muted);
+}
+
+.cv-account-menu .dropdown-item:hover i {
+    color: var(--cv-primary);
+}
+
+.cv-account-btn.dropdown-toggle::after {
+    display: none;
+}
+
+.cv-account-btn {
+    cursor: pointer;
+}
+
+.cv-account-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(15, 76, 255, 0.2);
+    border-radius: 999px;
+}
+
+/* Breadcrumb premium */
+.cv-breadcrumb-wrap {
+    margin-bottom: 1.25rem;
+}
+
+.cv-breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.8125rem;
+}
+
+.cv-breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cv-muted);
+}
+
+.cv-breadcrumb-item a {
+    color: var(--cv-muted);
+    text-decoration: none;
+    transition: color var(--cv-transition);
+}
+
+.cv-breadcrumb-item a:hover {
+    color: var(--cv-primary);
+}
+
+.cv-breadcrumb-item.active span {
+    color: var(--cv-text);
+    font-weight: 600;
+}
+
+.cv-breadcrumb-sep {
+    font-size: 0.65rem;
+    opacity: 0.45;
+}
+
+/* Home panels WHMCS nativos dentro do dashboard */
+.cv-dashboard .cv-card,
+.cv-dashboard .card {
+    border: 1px solid var(--cv-border);
+    border-radius: var(--cv-radius);
+    box-shadow: var(--cv-shadow);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.cv-dashboard .card-header,
+.cv-dashboard .cv-card-header {
+    background: var(--cv-surface);
+    border-bottom: 1px solid var(--cv-border);
+    padding: 1rem 1.25rem;
+}
+
+.cv-dashboard .card-title,
+.cv-dashboard .cv-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cv-dashboard .list-group-item {
+    border-color: var(--cv-border);
+    padding: 0.75rem 1.25rem;
+    transition: background var(--cv-transition);
+}
+
+.cv-dashboard .list-group-item:hover {
+    background: var(--cv-surface-2);
+}
+
+.cv-dashboard .list-group-item-action {
+    color: var(--cv-text);
+}
+
+/* Tabelas — garantir visibilidade após init */
+.cv-table-card .table-list.w-hidden.cv-table-ready {
+    display: table !important;
+}
+
+.cv-table-card #tableLoading.cv-hidden {
+    display: none !important;
+}

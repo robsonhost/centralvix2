@@ -1,0 +1,10 @@
+.cvix-adj-client-wrap{font-family:"Segoe UI",system-ui,sans-serif;max-width:960px;margin:0 auto;color:#1e293b}
+.cvix-adj-client-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.cvix-adj-client-nav a{padding:8px 12px;background:#f4f7fb;border-radius:8px;text-decoration:none;color:#1e293b;font-size:13px}
+.cvix-adj-client-nav a.active{background:#1e4fd8;color:#fff}
+.cvix-adj-client-hero{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.cvix-adj-quota{background:#e2e8f0;border-radius:8px;height:12px;overflow:hidden;margin:12px 0}
+.cvix-adj-quota .bar{height:100%;background:linear-gradient(90deg,#1e4fd8,#00bcd4)}
+.cvix-adj-quota.large{height:20px}
+.cvix-adj-empty{text-align:center;padding:40px;background:#f4f7fb;border-radius:12px}
+.cvix-adj-stats{list-style:none;padding:0;margin:0}.cvix-adj-stats li{padding:6px 0;border-bottom:1px solid #e2e8f0}

@@ -1,0 +1,50 @@
+.cvix-mig-client-wrap{font-family:'Segoe UI',system-ui,sans-serif;color:#1e293b;max-width:960px;margin:0 auto}
+.cvix-mig-hero{background:linear-gradient(135deg,#0a1628,#1e4fd8);color:#fff;padding:28px;border-radius:16px;margin-bottom:20px}
+.cvix-mig-hero h2{margin:0 0 8px;font-size:24px}
+.cvix-mig-hero p{margin:0 0 16px;opacity:.9}
+.cvix-mig-hero--compact{padding:20px}
+.cvix-mig-btn{padding:10px 18px;border-radius:10px;background:linear-gradient(135deg,#1e4fd8,#0891b2);color:#fff;border:0;font-weight:700;cursor:pointer;font-size:14px;text-decoration:none;display:inline-block}
+.cvix-mig-btn.sm{padding:6px 12px;font-size:12px}
+.cvix-mig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.cvix-mig-card-link{display:block;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;text-decoration:none;color:inherit;box-shadow:0 4px 14px rgba(15,23,42,.06);transition:transform .15s,border-color .15s}
+.cvix-mig-card-link:hover{transform:translateY(-2px);border-color:#22d3ee}
+.cvix-mig-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.cvix-mig-pill{padding:3px 10px;border-radius:999px;font-size:10px;font-weight:700;background:#e2e8f0;white-space:nowrap}
+.cvix-mig-pill--concluida{background:#d1fae5;color:#065f46}
+.cvix-mig-pill--falhou,.cvix-mig-pill--cancelada{background:#fee2e2;color:#991b1b}
+.cvix-mig-pill--agendada,.cvix-mig-pill--backup,.cvix-mig-pill--migrando_arquivos,.cvix-mig-pill--migrando_banco,.cvix-mig-pill--testando{background:#dbeafe;color:#1e40af}
+.cvix-mig-muted{color:#64748b;font-size:13px}
+.cvix-mig-progress{height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:8px 0}
+.cvix-mig-progress div{height:100%;background:linear-gradient(90deg,#1e4fd8,#22d3ee);border-radius:999px}
+.cvix-mig-progress--lg{height:10px}
+.cvix-mig-progress-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;margin-bottom:20px}
+.cvix-mig-progress-label{display:flex;justify-content:space-between;margin-bottom:8px}
+.cvix-mig-timeline{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-wrap:wrap;gap:0}
+.cvix-mig-timeline__item{flex:1;min-width:100px;text-align:center;position:relative;padding:0 4px 28px}
+.cvix-mig-timeline__dot{width:14px;height:14px;border-radius:50%;background:#cbd5e1;margin:0 auto 8px;border:3px solid #fff;box-shadow:0 0 0 2px #cbd5e1}
+.cvix-mig-timeline__item--done .cvix-mig-timeline__dot{background:#22d3ee;box-shadow:0 0 0 2px #22d3ee}
+.cvix-mig-timeline__item--active .cvix-mig-timeline__dot{background:#1e4fd8;box-shadow:0 0 0 2px #1e4fd8;animation:cvix-pulse 1.5s infinite}
+.cvix-mig-timeline__item--failed .cvix-mig-timeline__dot{background:#ef4444;box-shadow:0 0 0 2px #ef4444}
+.cvix-mig-timeline__label{font-size:11px;color:#64748b;display:block}
+.cvix-mig-timeline__item--done .cvix-mig-timeline__label{color:#0f766e;font-weight:600}
+.cvix-mig-timeline__item--active .cvix-mig-timeline__label{color:#1e4fd8;font-weight:700}
+@keyframes cvix-pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.cvix-mig-split-client{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:768px){.cvix-mig-split-client{grid-template-columns:1fr}.cvix-mig-timeline{flex-direction:column}}
+.cvix-mig-panel{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;margin-bottom:16px}
+.cvix-mig-panel h3{margin-top:0;font-size:16px;color:#0f172a}
+.cvix-mig-form label{display:block;margin-bottom:10px;font-size:13px;font-weight:600;color:#334155}
+.cvix-mig-form input,.cvix-mig-form select,.cvix-mig-form textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;box-sizing:border-box}
+.cvix-mig-form textarea{min-height:80px}
+.cvix-mig-check{display:flex;align-items:center;gap:8px;font-weight:400}
+.cvix-mig-check input{width:auto}
+.cvix-mig-details{list-style:none;padding:0;margin:0;font-size:13px}
+.cvix-mig-details li{padding:6px 0;border-bottom:1px solid #f1f5f9}
+.cvix-mig-comment{background:#f8fafc;border-radius:10px;padding:10px;margin-bottom:8px;font-size:13px}
+.cvix-mig-alert{padding:12px;border-radius:10px;margin-bottom:16px;font-size:14px}
+.cvix-mig-alert.ok{background:#ecfeff;border:1px solid #0891b2;color:#0e7490}
+.cvix-mig-alert.err{background:#fef2f2;border:1px solid #ef4444;color:#b91c1c}
+.cvix-mig-empty{text-align:center;padding:40px;color:#64748b;background:#f8fafc;border-radius:14px}
+.cvix-mig-files{font-size:13px;padding-left:18px}
+.cvix-mig-inline{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+.cvix-mig-cred-box{border:1px dashed #cbd5e1;border-radius:10px;padding:14px;margin:14px 0;background:#f8fafc}

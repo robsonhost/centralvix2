@@ -1,0 +1,54 @@
+{
+    "batch_id": "CATALOGO-CENTRALVIX-20260905-28FB",
+    "created_at": "2026-09-05T23:02:37-03:00",
+    "groups": [
+        {
+            "id": 1,
+            "name": "SITE",
+            "slug": null,
+            "headline": "Título do Grupo de Produtos",
+            "tagline": "Título do Grupo de Produtos",
+            "orderfrmtpl": "",
+            "disabledgateways": "",
+            "hidden": 0,
+            "order": 1,
+            "icon": null,
+            "created_at": "2026-09-05 15:17:24",
+            "updated_at": "2026-09-05 15:17:24",
+            "segment": null,
+            "title": null,
+            "subtitle": null,
+            "color": null,
+            "featured": null,
+            "features_json": null,
+            "product_count": 1
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "gid": 1,
+            "name": "teste",
+            "type": "hostingaccount",
+            "paytype": "free",
+            "hidden": 1,
+            "retired": 0,
+            "servertype": "cpanel",
+            "welcomeemail": 1,
+            "description": "",
+            "autosetup": "",
+            "group_name": "SITE",
+            "monthly": "-1.00",
+            "quarterly": "-1.00",
+            "semiannually": "-1.00",
+            "annually": "-1.00",
+            "biennially": "-1.00",
+            "triennially": "-1.00",
+            "slug": null,
+            "segment": null,
+            "slogan": null,
+            "badge": null,
+            "pub_status": null
+        }
+    ]
+}

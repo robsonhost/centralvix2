@@ -1,0 +1,3 @@
+# Proteger arquivos temporários
+Order deny,allow
+Deny from all

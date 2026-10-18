@@ -1,0 +1,30 @@
+{
+  "schema": "2.1",
+  "type": "whmcs-gateways",
+  "name": "efipixmpay",
+  "license": "proprietary",
+  "category": "payments",
+  "description": {
+    "name": "Efí Pay Pix Gateway",
+    "tagline": "Integração de pagamentos Pix com Efí Pay para WHMCS",
+    "long": "Este módulo permite que o WHMCS aceite pagamentos via Pix através da Efí Pay, oferecendo um método de pagamento moderno com recursos como geração de QR Code, Pix Copia e Cola e uma página personalizada para visualizar o histórico de pagamentos Pix recebidos.",
+    "features": [
+      "Geração de QR Codes Pix diretamente no WHMCS",
+      "Suporte para Pix Copia e Cola",
+      "Atualização automática do status de faturas via webhooks"
+    ]
+  },
+  "logo": {
+    "filename": "images/logo.png"
+  },
+  "support": {
+    "docs_url": "https://modulespay.com.br/efi.cobranca.php"
+  },
+  "authors": [
+    {
+      "name": "MODULESPAY",
+      "homepage": "https://www.modulespay.com.br"
+    }
+  ]
+}
+

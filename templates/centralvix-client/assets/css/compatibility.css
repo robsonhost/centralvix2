@@ -1,0 +1,149 @@
+/* Compatibilidade Twenty-One / Bootstrap / Checkout / Gateways */
+
+.cv-client-body .label.status,
+.cv-client-body .status {
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+}
+
+.cv-checkout .order-summary,
+.cv-checkout #order-standard_cart,
+.cv-checkout .view-cart {
+    /* preserva layout do order form */
+}
+
+.cv-checkout .btn-primary {
+    border-radius: 10px;
+}
+
+/* Mercado Pago / Asaas — containers comuns */
+.payment-btn-container,
+.checkout-content .gateway,
+#frmPayment {
+    /* não sobrescrever layout crítico */
+}
+
+.cv-client-body .alert {
+    border-radius: var(--cv-radius-sm);
+}
+
+.cv-client-body .btn-primary {
+    background: var(--cv-gradient);
+    border: 0;
+}
+
+.cv-client-body .btn-primary:hover {
+    filter: brightness(1.05);
+}
+
+/* DataTables search/filter */
+.dataTables_filter input,
+.dataTables_length select {
+    border-radius: 8px !important;
+    border-color: var(--cv-border) !important;
+}
+
+/* Addon panels na home */
+.cv-addon-panel .panel,
+.cv-addon-panel .card {
+    border-radius: var(--cv-radius);
+    border-color: var(--cv-border);
+}
+
+/* Hosting shortcuts quando existirem no tpl do produto */
+.cv-hosting-shortcuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.cv-hosting-shortcuts .cv-button {
+    flex: 1 1 auto;
+    min-width: 120px;
+}
+
+/* VPS actions — somente estilo, módulo fornece botões */
+.cv-vps-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Streaming metrics */
+.cv-stream-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+}
+
+/* PIX — estilização genérica de gateways */
+body .pix-qrcode,
+body [class*="pix" i] textarea,
+body [class*="pix" i] input[readonly] {
+    border-radius: 10px !important;
+}
+
+body img[alt*="PIX" i],
+body img[alt*="Pix" i],
+body .qr-code img {
+    border-radius: var(--cv-radius-sm);
+    padding: 0.5rem;
+    background: #fff;
+}
+
+.cv-pix-amount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--cv-primary);
+}
+
+.cv-pix-expiry {
+    color: var(--cv-muted);
+    font-size: 0.875rem;
+}
+
+/* Ocultar header Twenty-One legado se vazar */
+.cv-logged-in > #header.header {
+    display: none !important;
+}
+
+.cv-service-detail-page .module-client-area,
+.cv-service-detail-page .product-details-tab-container {
+    border-radius: var(--cv-radius, 14px);
+}
+
+.cv-service-detail-page .nav-tabs .nav-link.active {
+    border-color: var(--cv-primary, #0F4CFF);
+    color: var(--cv-primary, #0F4CFF);
+}
+
+.cv-invoice-page .payment-btn-container .btn,
+.cv-invoice-page .btn-primary {
+    border-radius: 10px;
+}
+
+.cv-invoice-page .invoice-container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+}
+
+.cv-domains-page .table-container {
+    background: var(--cv-surface, #fff);
+    border-radius: var(--cv-radius, 14px);
+    border: 1px solid var(--cv-border, #D8E3F0);
+    padding: 1rem;
+}
+
+.cv-password-reset .card {
+    border-radius: var(--cv-radius, 14px);
+    border: 1px solid var(--cv-border, #D8E3F0);
+    box-shadow: var(--cv-shadow, 0 8px 30px rgba(7,20,38,.08));
+}
+
+.cv-page-login #header,
+.cv-page-register #header {
+    display: none !important;
+}

@@ -1,0 +1,29 @@
+[data-cv-theme="dark"] .cv-client-body,
+[data-cv-theme="dark"] .primary-bg-color {
+    background: var(--cv-bg) !important;
+    color: var(--cv-text);
+}
+
+[data-cv-theme="dark"] .cv-card,
+[data-cv-theme="dark"] .cv-stat-card,
+[data-cv-theme="dark"] .cv-service-card,
+[data-cv-theme="dark"] .table-container,
+[data-cv-theme="dark"] .cv-profile-page .card {
+    background: var(--cv-surface);
+    border-color: var(--cv-border);
+    color: var(--cv-text);
+}
+
+[data-cv-theme="dark"] .form-control,
+[data-cv-theme="dark"] .cv-input {
+    background: var(--cv-surface-2) !important;
+    border-color: var(--cv-border) !important;
+    color: var(--cv-text) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    [data-cv-theme="system"] .cv-client-body,
+    [data-cv-theme="system"] .primary-bg-color {
+        background: var(--cv-bg) !important;
+    }
+}

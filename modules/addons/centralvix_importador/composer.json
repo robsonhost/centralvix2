@@ -1,0 +1,22 @@
+{
+    "name": "centralvix/whmcs-importador-clientes",
+    "description": "Módulo WHMCS para importação em massa de clientes via CSV e Excel",
+    "version": "1.0.0",
+    "type": "whmcs-addon",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.1 <8.4",
+        "phpoffice/phpspreadsheet": "^2.3.0"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2.33"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "CentralVix\\Importador\\": "lib/"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+@media (max-width: 767.98px) {
+    .cv-page-header-title { font-size: 1.35rem; }
+    .cv-hero { padding: 1.25rem; }
+    .cv-stats-grid { grid-template-columns: 1fr 1fr; }
+    .cv-stat-value { font-size: 1.4rem; }
+}
+
+@media (max-width: 575.98px) {
+    .cv-stats-grid { grid-template-columns: 1fr; }
+    .cv-quick-actions { grid-template-columns: repeat(2, 1fr); }
+}
+
+.cv-checkout .header,
+.cv-checkout-header {
+    background: var(--cv-surface);
+    border-bottom: 1px solid var(--cv-border);
+}
+
+.cv-checkout .primary-content {
+    padding: 0;
+}
+
+/* Não cobrir bottom nav com WhatsApp */
+@media (max-width: 991.98px) {
+    .cv-logged-in .cv-whatsapp-wrap {
+        bottom: calc(var(--cv-bottom-nav-height) + env(safe-area-inset-bottom) + 0.75rem);
+    }
+}

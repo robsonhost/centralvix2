@@ -1,0 +1,3 @@
+# Proteger pasta de armazenamento
+Order deny,allow
+Deny from all

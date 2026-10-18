@@ -1,0 +1,36 @@
+{
+    "schema": "4.2",
+    "type": "whmcs-addons",
+    "name": "notificazap",
+    "license": "proprietary",
+    "category": "utilities",
+    "description": {
+        "name": "Notificações via WhatsApp API",
+        "tagline": "Dispara mensagens para a plataforma WHMCS quando hooks são executados.",
+        "long": "Possibilita o disparo manual e automático de mensagens através da API do WhatsApp.",
+        "features": [
+            "Client Notification: Login, Registration, Change password",
+            "Invoice Notification: Create, Paid, Reminder(First, Second, Third Overdue)",
+            "Service Notification: Create, Suspend, Unsuspend, Change package, Change passwordr",
+            "Domain Notification: Registration, Transfer, Renewal, Reminder(First, Second, Third Overdue)",
+            "Ticket Notification: Admin reply, Close, Open admin, User reply",
+            "Send invoice PDF file",
+            "Custom field",
+            "And ..."
+        ]
+    },
+    "logo": {
+        "filename": "img/logo.png"
+    },
+    "support": {
+        "homepage": "https://modulespay.com.br",
+        "email": "contato@modulespay.com.br",
+        "support_url": "https://modulespay.com.br/"
+    },
+    "authors": [
+        {
+            "name": "MODULES PAY",
+            "homepage": "https://modulespay.com.br/"
+        }
+    ]
+}

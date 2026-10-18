@@ -1,0 +1,20 @@
+.cvix-lic-client{font-family:'Segoe UI',system-ui,sans-serif;color:#0f172a;padding:8px 0 24px}
+.cvix-lic-hero{background:linear-gradient(135deg,#0a1628,#1e4fd8);color:#fff;padding:24px;border-radius:16px;margin-bottom:18px}
+.cvix-lic-hero h2{margin:0 0 6px}
+.cvix-lic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.cvix-lic-card-link{display:block;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;text-decoration:none;color:inherit;box-shadow:0 8px 24px rgba(10,22,40,.06)}
+.cvix-lic-card-link h3{margin:0 0 8px;font-size:17px}
+.cvix-lic-pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;background:#e0f2fe;color:#0369a1}
+.cvix-lic-pill--ativa{background:#dcfce7;color:#15803d}
+.cvix-lic-pill--suspensa,.cvix-lic-pill--expirada{background:#fef3c7;color:#b45309}
+.cvix-lic-pill--cancelada{background:#fee2e2;color:#b91c1c}
+.cvix-lic-empty{padding:36px;text-align:center;background:#f8fafc;border-radius:14px;color:#64748b}
+.cvix-lic-detail{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:22px}
+.cvix-lic-key-box{margin:18px 0}
+.cvix-lic-key-input{width:100%;padding:12px;font-family:monospace;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;margin:6px 0 10px}
+.cvix-lic-btn{padding:10px 16px;border-radius:10px;background:linear-gradient(135deg,#1e4fd8,#0891b2);color:#fff;border:0;font-weight:700;cursor:pointer}
+.cvix-lic-btn.sm{padding:7px 12px;font-size:12px}
+.cvix-lic-meta{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:16px 0}
+.cvix-lic-meta li{background:#f8fafc;padding:12px;border-radius:10px}
+.cvix-lic-meta span{display:block;font-size:12px;color:#64748b}
+.cvix-lic-history{font-size:13px;color:#475569}

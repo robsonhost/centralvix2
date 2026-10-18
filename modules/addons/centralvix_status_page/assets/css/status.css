@@ -1,0 +1,324 @@
+:root {
+    --cvix-navy: #0a1628;
+    --cvix-royal: #1e4fd8;
+    --cvix-cyan: #00bcd4;
+    --cvix-white: #ffffff;
+    --cvix-gray-100: #f4f7fb;
+    --cvix-gray-200: #e2e8f0;
+    --cvix-gray-500: #64748b;
+    --cvix-gray-800: #1e293b;
+    --cvix-ok: #10b981;
+    --cvix-warn: #f59e0b;
+    --cvix-danger: #ef4444;
+    --cvix-info: #3b82f6;
+}
+
+* { box-sizing: border-box; }
+
+body.cvix-public {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--cvix-gray-100);
+    color: var(--cvix-gray-800);
+    line-height: 1.5;
+}
+
+.cvix-public-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.cvix-public-header {
+    background: linear-gradient(135deg, var(--cvix-navy) 0%, #0d2a5c 50%, var(--cvix-royal) 100%);
+    color: var(--cvix-white);
+    padding: 32px 0 24px;
+}
+
+.cvix-public-header .cvix-public-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.cvix-public-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cvix-public-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--cvix-cyan), var(--cvix-royal));
+    box-shadow: 0 6px 24px rgba(0, 188, 212, 0.4);
+}
+
+.cvix-public-brand strong {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.cvix-public-brand h1 {
+    margin: 4px 0 0;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.cvix-public-overall {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+}
+
+.cvix-public-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.cvix-public-overall.cvix-sp-ok { color: #6ee7b7; }
+.cvix-public-overall.cvix-sp-warn { color: #fcd34d; }
+.cvix-public-overall.cvix-sp-danger { color: #fca5a5; }
+.cvix-public-overall.cvix-sp-info { color: #93c5fd; }
+
+.cvix-public-sub {
+    text-align: center;
+    margin: 12px 0 0;
+    opacity: 0.85;
+    font-size: 15px;
+}
+
+.cvix-public-section {
+    margin: 32px 0;
+}
+
+.cvix-public-section h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--cvix-gray-500);
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--cvix-gray-200);
+}
+
+.cvix-public-services {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cvix-public-service {
+    background: var(--cvix-white);
+    border: 1px solid var(--cvix-gray-200);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: box-shadow 0.15s;
+}
+
+.cvix-public-service:hover {
+    box-shadow: 0 4px 16px rgba(10, 22, 40, 0.08);
+}
+
+.cvix-public-service-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.cvix-public-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.cvix-public-indicator.cvix-sp-ok { background: var(--cvix-ok); }
+.cvix-public-indicator.cvix-sp-warn { background: var(--cvix-warn); }
+.cvix-public-indicator.cvix-sp-danger { background: var(--cvix-danger); }
+.cvix-public-indicator.cvix-sp-info { background: var(--cvix-info); }
+.cvix-public-indicator.cvix-sp-muted { background: var(--cvix-gray-500); }
+
+.cvix-public-service h3 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--cvix-navy);
+}
+
+.cvix-public-service p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--cvix-gray-500);
+}
+
+.cvix-public-status-label {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.cvix-public-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    padding-left: 22px;
+    font-size: 12px;
+    color: var(--cvix-gray-500);
+}
+
+.cvix-public-history {
+    display: flex;
+    gap: 2px;
+    margin-top: 10px;
+    padding-left: 22px;
+    overflow: hidden;
+}
+
+.cvix-public-bar {
+    width: 4px;
+    height: 24px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.cvix-public-bar.ok { background: var(--cvix-ok); opacity: 0.7; }
+.cvix-public-bar.fail { background: var(--cvix-danger); opacity: 0.7; }
+
+.cvix-public-incidents,
+.cvix-public-maintenance {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cvix-public-incident {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--cvix-white);
+    border: 1px solid var(--cvix-gray-200);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s;
+}
+
+.cvix-public-incident:hover {
+    border-color: var(--cvix-royal);
+}
+
+.cvix-public-incident strong {
+    flex: 1;
+    font-size: 14px;
+}
+
+.cvix-public-incident time {
+    font-size: 12px;
+    color: var(--cvix-gray-500);
+}
+
+.cvix-public-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cvix-public-badge.cvix-sp-ok { background: #d1fae5; color: #065f46; }
+.cvix-public-badge.cvix-sp-warn { background: #fef3c7; color: #92400e; }
+.cvix-public-badge.cvix-sp-danger { background: #fee2e2; color: #991b1b; }
+.cvix-public-badge.cvix-sp-info { background: #dbeafe; color: #1e40af; }
+
+.cvix-public-maint-item {
+    background: var(--cvix-white);
+    border: 1px solid var(--cvix-gray-200);
+    border-left: 4px solid var(--cvix-cyan);
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.cvix-public-maint-item h3 {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.cvix-public-maint-item p {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: var(--cvix-gray-500);
+}
+
+.cvix-public-maint-item time {
+    font-size: 12px;
+    color: var(--cvix-gray-500);
+}
+
+.cvix-public-footer {
+    margin-top: 48px;
+    padding: 24px 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--cvix-gray-500);
+    border-top: 1px solid var(--cvix-gray-200);
+}
+
+.cvix-public-back {
+    color: var(--cvix-cyan);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.cvix-public-back:hover {
+    text-decoration: underline;
+}
+
+.cvix-incident-detail {
+    background: var(--cvix-white);
+    border: 1px solid var(--cvix-gray-200);
+    border-radius: 12px;
+    padding: 28px;
+    margin-top: 24px;
+}
+
+.cvix-incident-detail h2 {
+    margin: 12px 0;
+    font-size: 22px;
+    color: var(--cvix-navy);
+}
+
+.cvix-incident-desc {
+    font-size: 15px;
+    color: var(--cvix-gray-800);
+}
+
+.cvix-incident-meta {
+    font-size: 13px;
+    color: var(--cvix-gray-500);
+}
+
+.cvix-public-timeline {
+    margin-top: 28px;
+}
+
+@media (max-width: 640px) {
+    .cvix-public-service-head { flex-wrap: wrap; }
+    .cvix-public-status-label { margin-left: 22px; }
+    .cvix-public-incident { flex-wrap: wrap; }
+}
