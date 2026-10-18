@@ -39,6 +39,16 @@
     --cv-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
+[data-cv-theme="light"] {
+    --cv-bg: #F5F8FC;
+    --cv-surface: #FFFFFF;
+    --cv-surface-2: #EEF4FB;
+    --cv-border: #D8E3F0;
+    --cv-text: #0B1F3A;
+    --cv-muted: #64748B;
+    --cv-shadow: 0 8px 30px rgba(7, 20, 38, 0.08);
+}
+
 @media (prefers-color-scheme: dark) {
     [data-cv-theme="system"] {
         --cv-bg: #071426;
@@ -375,8 +385,7 @@ body[data-page="clientarea"] .cv-breadcrumb-wrap {
     border-bottom: 1px solid var(--cv-border);
 }
 
-[data-cv-theme="dark"] .cv-topbar,
-[data-cv-theme="system"] .cv-topbar {
+[data-cv-theme="dark"] .cv-topbar {
     background: rgba(11, 31, 58, 0.88);
 }
 
