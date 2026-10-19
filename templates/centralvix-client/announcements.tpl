@@ -1,3 +1,4 @@
+<!-- cvix-canary-inner -->
 {include file="$template/includes/centralvix-page-open.tpl"}
 <div class="card">
     <div class="card-body">
