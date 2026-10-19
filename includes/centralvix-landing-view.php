@@ -364,7 +364,7 @@ function centralvix_render_home(array $cvix, array $ctx)
             'href' => '/' . $slug,
             'title' => (string) ($meta['title'] ?? $slug),
             'lead' => (string) ($meta['lead'] ?? ''),
-            'icon' => $serviceIcons[$slug] ?? 'fas fa-bolt',
+            'icon' => $serviceIcons[$slug] ?? 'fas fa-cube',
         ];
     }
     ob_start();
@@ -880,6 +880,25 @@ function centralvix_render_cadastro(array $ctx)
     ];
     ob_start();
     echo centralvix_page_hero('CRIAR CONTA', 'Cadastro e Finalização', 'Crie sua conta e contrate seus serviços com segurança. Campos com * são obrigatórios.');
+    if (!empty($ctx['signupLink'])) {
+        $invite = $ctx['signupLink'];
+        $inviteAmount = $invite->amount !== null ? ('R$ ' . number_format((float) $invite->amount, 2, ',', '.')) : '';
+        $inviteDay = (int) ($invite->due_day ?? 0);
+        ?>
+        <section class="cv-landing-wrap">
+            <div class="cv-signup-invite" role="status">
+                <span class="cv-signup-invite-icon" aria-hidden="true"><i class="fas fa-gift"></i></span>
+                <div class="cv-signup-invite-text">
+                    <strong>Convite válido — plano pré-contratado!</strong>
+                    <span>Mensalidade de <b><?php echo centralvix_h($inviteAmount); ?></b> com vencimento todo dia <b><?php echo $inviteDay; ?></b>. Finalize o cadastro para ativar.</span>
+                    <?php if (trim((string) $invite->description) !== '') { ?>
+                        <small><?php echo centralvix_h((string) $invite->description); ?></small>
+                    <?php } ?>
+                </div>
+            </div>
+        </section>
+        <?php
+    }
     ?>
     <section class="cv-reg-checkout">
         <div class="cv-landing-wrap">
@@ -1191,6 +1210,79 @@ function centralvix_render_catalog_page(array $ctx)
     return ob_get_clean();
 }
 
+function centralvix_render_link_page(array $ctx)
+{
+    $state = $ctx['linkState'] ?? ['mode' => 'invalid'];
+    $urls = $ctx['urls'] ?? [];
+    $mode = (string) ($state['mode'] ?? 'invalid');
+    ob_start();
+    ?>
+    <section class="cv-link-page">
+        <div class="cv-landing-wrap">
+            <div class="cv-link-card" data-cv-reveal>
+                <span class="cv-link-logo-badge" aria-hidden="true"><img src="/assets/img/logo-icon.png" alt=""></span>
+                <?php if ($mode === 'ok') {
+                    $first = (string) ($state['client']['firstname'] ?? 'cliente');
+                    $amount = $state['amount'];
+                    $fixed = !empty($state['fixed_amount']);
+                    $description = trim((string) ($state['description'] ?? ''));
+                    $error = (string) ($state['error'] ?? '');
+                    ?>
+                    <h1 class="cv-link-title">Olá, <?php echo centralvix_h($first); ?>!</h1>
+                    <p class="cv-link-lead">Gere sua fatura para pagamento em poucos segundos. Escolha a data de vencimento<?php echo $fixed ? '' : ' e informe o valor'; ?> e confirme.</p>
+                    <?php if ($description !== '') { ?>
+                        <p class="cv-link-desc"><i class="fas fa-circle-info" aria-hidden="true"></i> <?php echo centralvix_h($description); ?></p>
+                    <?php } ?>
+                    <?php if ($error !== '') { ?>
+                        <div class="cv-link-alert" role="alert"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> <?php echo centralvix_h($error); ?></div>
+                    <?php } ?>
+                    <form method="post" action="/link/<?php echo centralvix_h((string) $state['token']); ?>" class="cv-link-form">
+                        <input type="hidden" name="cvix_link_tk" value="<?php echo centralvix_h((string) ($state['csrf'] ?? '')); ?>">
+                        <div class="cv-link-field">
+                            <label for="cv-link-duedate">Data de vencimento</label>
+                            <input type="date" id="cv-link-duedate" name="duedate" required
+                                min="<?php echo centralvix_h((string) $state['min_date']); ?>"
+                                max="<?php echo centralvix_h((string) $state['max_date']); ?>"
+                                value="<?php echo centralvix_h((string) $state['default_date']); ?>">
+                        </div>
+                        <div class="cv-link-field">
+                            <label for="cv-link-amount">Valor da fatura (R$)</label>
+                            <input type="text" id="cv-link-amount" name="amount" required inputmode="decimal" placeholder="150,00"
+                                <?php if ($fixed && $amount !== null) { ?>value="<?php echo centralvix_h(number_format((float) $amount, 2, ',', '.')); ?>" readonly<?php } ?>>
+                        </div>
+                        <button type="submit" class="cv-landing-submit cv-link-submit"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Gerar fatura agora</button>
+                        <p class="cv-link-note"><i class="fas fa-lock" aria-hidden="true"></i> Link exclusivo e de uso único. A fatura é registrada no seu cadastro e pode ser paga via Pix.</p>
+                    </form>
+                <?php } elseif ($mode === 'done') {
+                    $invoiceId = (int) ($state['invoice_id'] ?? 0);
+                    $amount = (float) ($state['amount'] ?? 0);
+                    $dueDate = (string) ($state['duedate'] ?? '');
+                    ?>
+                    <div class="cv-link-success-icon" aria-hidden="true"><i class="fas fa-circle-check"></i></div>
+                    <h1 class="cv-link-title">Fatura #<?php echo $invoiceId; ?> gerada!</h1>
+                    <p class="cv-link-lead">Sua fatura foi criada com sucesso. Enviamos os dados no seu e-mail e WhatsApp.</p>
+                    <ul class="cv-link-summary">
+                        <li><span>Valor</span><strong>R$ <?php echo centralvix_h(number_format($amount, 2, ',', '.')); ?></strong></li>
+                        <li><span>Vencimento</span><strong><?php echo centralvix_h(date('d/m/Y', strtotime($dueDate))); ?></strong></li>
+                    </ul>
+                    <a href="/viewinvoice.php?id=<?php echo $invoiceId; ?>" class="cv-landing-submit cv-link-submit"><i class="fas fa-barcode" aria-hidden="true"></i> Pagar agora</a>
+                    <a href="<?php echo centralvix_h($urls['login_page'] ?? '/login.php'); ?>" class="cv-link-secondary">Entrar na Central do Cliente</a>
+                <?php } else { ?>
+                    <div class="cv-link-error-icon" aria-hidden="true"><i class="fas fa-link-slash"></i></div>
+                    <h1 class="cv-link-title">Link indisponível</h1>
+                    <p class="cv-link-lead">Este link é inválido, já foi utilizado ou expirou. Fale com o nosso atendimento que geramos um novo para você.</p>
+                    <div class="cv-link-actions">
+                        <a href="<?php echo centralvix_h($urls['contato'] ?? '/contato'); ?>" class="cv-landing-submit cv-link-submit"><i class="fas fa-headset" aria-hidden="true"></i> Falar com atendimento</a>
+                        <a href="<?php echo centralvix_h($urls['login_page'] ?? '/login.php'); ?>" class="cv-link-secondary">Entrar na Central do Cliente</a>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </section>
+    <?php
+    return ob_get_clean();
+}
+
 function centralvix_render_public_page($page, array $cvix, array $ctx)
 {
     $urls = $ctx['urls'];
@@ -1222,6 +1314,7 @@ function centralvix_render_public_page($page, array $cvix, array $ctx)
         'contato' => static function () use ($cvix, $ctx) { return centralvix_render_contato($cvix, $ctx); },
         'cadastro' => static function () use ($ctx) { return centralvix_render_cadastro($ctx); },
         '2via' => static function () use ($ctx) { return centralvix_render_2via($ctx); },
+        'link' => static function () use ($ctx) { return centralvix_render_link_page($ctx); },
     ];
     $body = isset($map[$page]) ? $map[$page]() : $map['home']();
     return '<div class="cv-landing" id="cv-landing-root">'

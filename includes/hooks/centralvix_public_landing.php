@@ -50,9 +50,9 @@ add_hook('ClientAreaHeadOutput', 1, function ($vars) {
     return '<link rel="preconnect" href="https://fonts.googleapis.com">'
         . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
         . '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
-        . '<link rel="stylesheet" href="/assets/css/centralvix-landing.css?v=2.5.0">'
+        . '<link rel="stylesheet" href="/assets/css/centralvix-landing.css?v=2.7.0">'
         . '<style id="cv-landing-adapter">body.cv-page-login,body.cv-landing-page{background:#06152E!important} .cv-login-page,.cv-auth-shell{display:none!important}</style>'
-        . '<script src="/assets/js/centralvix-landing.js?v=2.5.0" defer></script>';
+        . '<script src="/assets/js/centralvix-landing.js?v=2.7.0" defer></script>';
 });
 
 add_hook('ClientAreaHeaderOutput', 1, function ($vars) {

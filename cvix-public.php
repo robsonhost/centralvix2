@@ -37,7 +37,7 @@ try {
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'centralvix-whmcs-catalog.php';
 
-$allowedPages = ['home', 'login', 'recursos', 'planos', 'beneficios', 'sobre', 'contato', 'cadastro', '2via', 'catalogo'];
+$allowedPages = ['home', 'login', 'recursos', 'planos', 'beneficios', 'sobre', 'contato', 'cadastro', '2via', 'catalogo', 'link'];
 $catalogPages = array_keys(centralvix_catalog_pages());
 $allowedPages = array_values(array_unique(array_merge($allowedPages, $catalogPages)));
 $page = strtolower(trim((string) ($_GET['p'] ?? 'home')));
@@ -132,6 +132,113 @@ if ($page === 'contato' && $_SERVER['REQUEST_METHOD'] === 'POST' && (string) ($_
     }
 }
 
+$cvixLinksDir = __DIR__ . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'addons' . DIRECTORY_SEPARATOR . 'cvixlinks';
+$cvixLinksAvailable = is_file($cvixLinksDir . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'LinksService.php');
+if ($cvixLinksAvailable) {
+    require_once $cvixLinksDir . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'LinksService.php';
+    if (is_file($cvixLinksDir . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'WhatsAppNotify.php')) {
+        require_once $cvixLinksDir . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'WhatsAppNotify.php';
+    }
+    $cvixLinksAvailable = class_exists('CvixLinksService') && CvixLinksService::hasTable();
+}
+
+$linkState = ['mode' => 'invalid', 'csrf' => ''];
+$signupLink = null;
+if ($cvixLinksAvailable && $page === 'cadastro') {
+    $inviteToken = preg_replace('/[^a-zA-Z0-9]/', '', (string) ($_GET['lk'] ?? ''));
+    if ($inviteToken !== '') {
+        $invite = CvixLinksService::findActive($inviteToken, 'signup');
+        if ($invite) {
+            $signupLink = $invite;
+            setcookie('cvixlk', $inviteToken, time() + 30 * 86400, '/', '', false, true);
+        }
+    }
+}
+
+if ($page === 'link') {
+    if (empty($_SESSION['cvix_link_tk'])) {
+        $_SESSION['cvix_link_tk'] = bin2hex(random_bytes(32));
+    }
+    $linkState['csrf'] = (string) $_SESSION['cvix_link_tk'];
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_SESSION['cvix_link_done'])) {
+        $linkState = $_SESSION['cvix_link_done'];
+        unset($_SESSION['cvix_link_done']);
+    }
+}
+
+if ($cvixLinksAvailable && $page === 'link') {
+    $ltoken = preg_replace('/[^a-zA-Z0-9]/', '', (string) ($_GET['token'] ?? ''));
+    $linkRow = $ltoken !== '' ? CvixLinksService::findActive($ltoken) : null;
+    if ($linkRow && $linkRow->type === 'signup') {
+        header('Location: /cadastro?lk=' . $ltoken);
+        exit;
+    }
+    $linkClient = $linkRow ? CvixLinksService::resolveClient((string) $linkRow->client_id) : null;
+    if ($linkRow && $linkClient) {
+        $linkState = [
+            'mode' => 'ok',
+            'csrf' => $linkState['csrf'],
+            'token' => $ltoken,
+            'amount' => $linkRow->amount !== null ? (float) $linkRow->amount : null,
+            'fixed_amount' => (bool) $linkRow->fixed_amount,
+            'description' => (string) $linkRow->description,
+            'client' => ['firstname' => (string) $linkClient->firstname, 'name' => trim($linkClient->firstname . ' ' . $linkClient->lastname)],
+            'min_date' => date('Y-m-d'),
+            'max_date' => date('Y-m-d', strtotime('+60 days')),
+            'default_date' => date('Y-m-d', strtotime('+7 days')),
+            'error' => '',
+        ];
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            $tkOk = $linkState['csrf'] !== '' && hash_equals($linkState['csrf'], (string) ($_POST['cvix_link_tk'] ?? ''));
+            $dueDate = (string) ($_POST['duedate'] ?? '');
+            $amountInput = trim((string) ($_POST['amount'] ?? ''));
+            $amount = ($linkRow->fixed_amount && $linkRow->amount !== null)
+                ? (float) $linkRow->amount
+                : CvixLinksService::parseAmount($amountInput);
+            $dueOk = (bool) preg_match('/^\d{4}-\d{2}-\d{2}$/', $dueDate)
+                && $dueDate >= date('Y-m-d') && $dueDate <= date('Y-m-d', strtotime('+60 days'));
+            if (!$tkOk) {
+                $linkState['error'] = 'Sessão expirada. Recarregue a página e tente novamente.';
+            } elseif (!$dueOk) {
+                $linkState['error'] = 'Escolha uma data de vencimento válida (entre hoje e 60 dias).';
+            } elseif ($amount === null) {
+                $linkState['error'] = 'Informe um valor válido (ex.: 150,00).';
+            } else {
+                $description = trim((string) $linkRow->description) !== ''
+                    ? (string) $linkRow->description
+                    : 'Pagamento avulso — fatura gerada pelo cliente';
+                [$invoiceId, $apiError] = CvixLinksService::createInvoice(
+                    (int) $linkRow->client_id,
+                    $amount,
+                    $dueDate,
+                    $description,
+                    'Fatura gerada via link de pagamento CentralVix.'
+                );
+                if ($invoiceId > 0) {
+                    CvixLinksService::markUsed($linkRow->id, $invoiceId);
+                    try {
+                        if (!CvixLinksService::invoiceCreatedTemplateActive()) {
+                            CvixLinksWhatsApp::sendToClient($linkClient, CvixLinksWhatsApp::buildInvoiceMessage($linkClient, $invoiceId, $amount, $dueDate));
+                        }
+                    } catch (Throwable $e) {
+                    }
+                    $_SESSION['cvix_link_done'] = [
+                        'mode' => 'done',
+                        'csrf' => $linkState['csrf'],
+                        'invoice_id' => $invoiceId,
+                        'amount' => $amount,
+                        'duedate' => $dueDate,
+                        'client' => $linkState['client'],
+                    ];
+                    header('Location: /link/' . $ltoken);
+                    exit;
+                }
+                $linkState['error'] = 'Não foi possível gerar a fatura agora. Tente novamente ou fale com o atendimento. (' . $apiError . ')';
+            }
+        }
+    }
+}
+
 $urls = [
     'home' => '/',
     'recursos' => '/recursos',
@@ -182,6 +289,8 @@ $html = centralvix_render_public_page($page, $cvix, [
     'catalog' => $catalog,
     'contactSent' => $contactSent,
     'contactError' => $contactError,
+    'linkState' => $linkState,
+    'signupLink' => $signupLink,
 ]);
 
 $company = htmlspecialchars((string) ($cvix['brand'] ?? 'CENTRALVIX'), ENT_QUOTES, 'UTF-8');
@@ -194,6 +303,7 @@ $titles = [
     'sobre' => 'Sobre — ' . $company,
     'contato' => 'Contato — ' . $company,
     'cadastro' => 'Criar conta — ' . $company,
+    'link' => 'Pagamento — ' . $company,
     '2via' => '2ª via de fatura — ' . $company,
     'catalogo' => 'Catálogo — ' . $company,
     'hospedagem' => 'Hospedagem de Sites — ' . $company,
@@ -224,10 +334,10 @@ header('Content-Type: text/html; charset=utf-8');
     <link rel="stylesheet" href="/assets/fonts/css/fontawesome.min.css">
     <link rel="stylesheet" href="/assets/fonts/css/fontawesome-solid.min.css">
     <link rel="stylesheet" href="/assets/fonts/css/fontawesome-brands.min.css">
-    <link rel="stylesheet" href="/assets/css/centralvix-landing.css?v=2.5.0">
+    <link rel="stylesheet" href="/assets/css/centralvix-landing.css?v=2.7.0">
 </head>
 <body class="cv-landing-page">
 <?php echo $html; ?>
-<script src="/assets/js/centralvix-landing.js?v=2.5.0"></script>
+<script src="/assets/js/centralvix-landing.js?v=2.7.0"></script>
 </body>
 </html>

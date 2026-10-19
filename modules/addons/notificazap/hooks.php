@@ -929,7 +929,7 @@ add_hook("ClientLogin", 1, function ($vars) {
             if (WHMCS\Database\Capsule::table("tbladdonmodules")->where("module", "autologinmpay")->exists()) {
                 $linkautologin = $core->NOTIFICAZAP_generateAutologinLink($client->id, $vars["userid"], "painel");
             }
-            $corpo_mensagem = str_replace(["%name%", "%assinatura%", "%ipaddr%", "%date%", "%hour%", "%dominiowhmcs%"], [$client->firstname, $core->NOTIFICAZAP_Assinatura_WhatsApp(), getenv("REMOTE_ADDR"), date("d/m/Y"), date("H:i"), $linkautologin], $template["corpo_mensagem"]);
+            $corpo_mensagem = str_replace(["%name%", "%email%", "%assinatura%", "%ipaddr%", "%date%", "%hour%", "%dominiowhmcs%"], [$client->firstname, $client->email, $core->NOTIFICAZAP_Assinatura_WhatsApp(), getenv("REMOTE_ADDR"), date("d/m/Y"), date("H:i"), $linkautologin], $template["corpo_mensagem"]);
             $phone = $core->NOTIFICAZAP_AdjustNumber($client);
             $phone_whatsapp = $whatsapp->Valida_Number_WhatsApp($phone);
             $existsPhone = $phone_whatsapp[0]["exists"] ?? NULL;
@@ -2266,7 +2266,7 @@ add_hook("ClientAdd", 1, function ($vars) {
                             $linkAutologin = $core->NOTIFICAZAP_generateAutologinLink($clientId, $vars["userid"], "painel");
                         }
                         $company = WHMCS\Database\Capsule::table("tblconfiguration")->where("setting", "CompanyName")->value("value");
-                        $corpoMensagem = str_replace(["%name%", "%assinatura%", "%company%", "%dominiowhmcs%"], [$client->firstname, $core->NOTIFICAZAP_Assinatura_WhatsApp(), $company, $linkAutologin ?? $dominioWHMCS], $template["corpo_mensagem"]);
+                        $corpoMensagem = str_replace(["%name%", "%email%", "%assinatura%", "%company%", "%dominiowhmcs%"], [$client->firstname, $client->email, $core->NOTIFICAZAP_Assinatura_WhatsApp(), $company, $linkAutologin ?? $dominioWHMCS], $template["corpo_mensagem"]);
                         $phone = $core->NOTIFICAZAP_AdjustNumber($client);
                         $phone_whatsapp = $whatsapp->Valida_Number_WhatsApp($phone);
                         $existsPhone = $phone_whatsapp[0]["exists"] ?? NULL;

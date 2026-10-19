@@ -28,7 +28,7 @@ return [
     'home_about_kicker' => 'A CENTRALVIX',
     'home_about_title' => 'Contrate, gerencie e acompanhe em um só painel',
     'home_about_points' => [
-        ['icon' => 'fas fa-bolt', 'text' => 'Ativação rápida dos serviços contratados'],
+        ['icon' => 'fas fa-rocket', 'text' => 'Ativação rápida dos serviços contratados'],
         ['icon' => 'fas fa-file-invoice', 'text' => 'Segunda via e pagamentos direto no painel'],
         ['icon' => 'fas fa-headset', 'text' => 'Atendimento humano em horário comercial'],
     ],

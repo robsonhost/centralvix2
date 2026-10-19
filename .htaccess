@@ -18,6 +18,9 @@
   RewriteCond %{REQUEST_METHOD} !POST
   RewriteRule ^register\.php$ /cvix-public.php?p=cadastro [L,QSA]
 
+  RewriteRule ^link/?$ /cvix-public.php?p=link [L,QSA]
+  RewriteRule ^link/([A-Za-z0-9]{16,64})/?$ /cvix-public.php?p=link&token=$1 [L,QSA]
+
   RewriteRule ^(recursos|planos|beneficios|sobre|contato|cadastro|2via|catalogo|hospedagem|revenda|revenda-hospedagem|vps|vps-brasil|vps-canada|streaming|revenda-streaming|web-radio|aplicativos|sites|desenvolvimento)/?$ /cvix-public.php?p=$1 [L,QSA]
 </IfModule>
 
