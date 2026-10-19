@@ -1,3 +1,4 @@
+<!-- cvix-common tpl={$template} file={$templatefile} carttpl={$carttpl|default:'?'} cart={$inShoppingCart|default:'?'} loggedin={$loggedin|default:'?'} -->
 <link rel="stylesheet" type="text/css" href="{assetPath file='all.min.css'}?v={$versionHash}" />
 {assetExists file="custom.css"}
 <link rel="stylesheet" type="text/css" href="{$__assetPath__}?v={$versionHash}" />
