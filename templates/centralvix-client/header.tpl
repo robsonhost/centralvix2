@@ -24,9 +24,10 @@
         .cv-button-primary{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1rem;background:linear-gradient(135deg,#0F4CFF,#00C8FF);color:#fff!important;border-radius:10px;text-decoration:none;font-weight:600;border:0}
         @media(max-width:991px){.cv-main{margin-left:0}.cv-sidebar{transform:translateX(-100%)}.cv-sidebar.cv-sidebar-open{transform:translateX(0)}}
     </style>
-    <!-- cvix-header-v1.2.5 -->
+    <!-- cvix-header-v1.3.1 -->
 </head>
 <body class="primary-bg-color cv-client-body{if $loggedin && !$inShoppingCart} cv-logged-in{/if}{if $inShoppingCart} cv-checkout{/if}{if $templatefile == 'login'} cv-page-login{/if}{if $templatefile == 'clientregister'} cv-page-register{/if}" data-cv-theme="system" data-phone-cc-input="{$phoneNumberInputStyle}" data-page="{$templatefile|escape:'html'}">
+    <!-- cvix-wrap-marker:v1.3.1 -->
     {if $captcha}{$captcha->getMarkup()}{/if}
     {$headeroutput}
 
