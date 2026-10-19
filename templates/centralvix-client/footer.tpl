@@ -1,3 +1,4 @@
+<!-- cvix-footer-executed tpl={$template} file={$templatefile} -->
 {if $loggedin && !$inShoppingCart && $templatefile != 'login' && $templatefile != 'clientregister' && $templatefile != 'password-reset-container'}
                         </div>{* .cv-page-content *}
                     </div>{* .cv-page-inner *}

@@ -1,3 +1,4 @@
+<!-- cvix-header-executed tpl={$template} file={$templatefile} cart={$inShoppingCart|default:'?'} -->
 <!doctype html>
 <html lang="pt-BR">
 <head>

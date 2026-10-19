@@ -1,4 +1,4 @@
-<!-- cvix-canary-inner -->
+<!-- cvix-canary-inner tpl={$template} file={$templatefile} loggedin={$loggedin|default:'?'} cart={$inShoppingCart|default:'?'} -->
 {include file="$template/includes/centralvix-page-open.tpl"}
 <div class="card">
     <div class="card-body">
