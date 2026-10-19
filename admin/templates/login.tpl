@@ -1,121 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CENTRALVIX — {$displayTitle}</title>
+        <title>WHMCS - {$displayTitle}</title>
 
         {\WHMCS\View\Asset::fontCssInclude('open-sans-family.css')}
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         <link href="templates/login.min.css" rel="stylesheet">
-        <style>
-            html, body {
-                min-height: 100%;
-            }
-            body {
-                margin: 0;
-                font-family: Inter, "Segoe UI", system-ui, sans-serif;
-                background:
-                    radial-gradient(ellipse 80% 50% at 80% 0%, rgba(20, 108, 255, 0.22), transparent 55%),
-                    repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 72px),
-                    repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 72px),
-                    #020b1c;
-                color: #fff;
-            }
-            .login-container {
-                width: min(420px, calc(100% - 2rem));
-                margin: 8vh auto 2rem;
-                padding: 0;
-                background: transparent;
-                box-shadow: none;
-            }
-            .logo {
-                text-align: center;
-                margin: 0 0 1.25rem;
-            }
-            .logo a {
-                text-decoration: none;
-            }
-            .cv-admin-wordmark {
-                display: block;
-                font-size: 1.7rem;
-                font-weight: 800;
-                letter-spacing: 0.06em;
-                color: #fff;
-            }
-            .cv-admin-wordmark span { color: #2583ff; }
-            .cv-admin-tag {
-                display: block;
-                margin-top: 4px;
-                font-size: 0.68rem;
-                font-weight: 600;
-                letter-spacing: 0.16em;
-                color: rgba(255,255,255,.7);
-            }
-            .login-body {
-                padding: 1.6rem 1.45rem 1.35rem;
-                border: 1px solid rgba(255,255,255,.12);
-                border-radius: 16px;
-                background: rgba(8, 18, 38, .78);
-                box-shadow: 0 18px 50px rgba(0,0,0,.28);
-                backdrop-filter: blur(16px);
-            }
-            .login-body h2 {
-                margin: 0 0 1rem;
-                color: #fff;
-                font-size: 1.35rem;
-                font-weight: 800;
-            }
-            .form-control {
-                height: 48px;
-                border: 1px solid rgba(255,255,255,.12);
-                border-radius: 10px;
-                background: rgba(2, 11, 28, .65);
-                color: #fff;
-                box-shadow: none;
-            }
-            .form-control:focus {
-                border-color: #146cff;
-                box-shadow: 0 0 0 3px rgba(20,108,255,.18);
-            }
-            .btn-primary {
-                height: 46px;
-                border: 0;
-                border-radius: 10px;
-                background: linear-gradient(180deg, #2583ff 0%, #146cff 100%);
-                font-weight: 700;
-            }
-            .btn-primary:hover,
-            .btn-primary:focus {
-                background: #2583ff;
-                filter: brightness(1.05);
-            }
-            .checkbox label,
-            .login-body p,
-            .footer,
-            .footer a {
-                color: #94a3b8;
-            }
-            .footer {
-                margin-top: 1rem;
-                text-align: center;
-            }
-            .footer a { color: #2583ff; font-weight: 600; }
-            .alert {
-                border-radius: 10px;
-            }
-            .language-chooser {
-                width: min(420px, calc(100% - 2rem));
-                margin: 0 auto 1rem;
-            }
-            .poweredby,
-            .poweredby a {
-                color: #64748b;
-                font-size: 12px;
-            }
-            .logo img { display: none; }
-        </style>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -126,9 +21,7 @@
         <div class="login-container">
             <h1 class="logo">
                 <a href="login.php">
-                    <span class="cv-admin-wordmark">CENTRAL<span>VIX</span></span>
-                    <span class="cv-admin-tag">PAINEL ADMINISTRATIVO</span>
-                    <img src="{$BASE_PATH_IMG}/whmcs.png" alt="CENTRALVIX" />
+                    <img src="{$BASE_PATH_IMG}/whmcs.png" alt="WHMCS" />
                 </a>
             </h1>
             <div class="login-body">
